@@ -221,3 +221,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# FraudShield AI - Local datasets and trained models
+data/raw/
+data/processed/
+models/*.joblib
+models/*.pkl
