@@ -1,24 +1,14 @@
 
-# ==========================================
-# STEP 1: Import FastAPI
-# ==========================================
-
 # Import FastAPI to create our backend application.
 from fastapi import FastAPI
-
-
-# ==========================================
-# STEP 2: Create FastAPI Application
-# ==========================================
+# Import transaction schema
+from backend.schemas import TransactionInput
 
 # Create an application named "app".
 # Uvicorn will look for this variable.
 app = FastAPI(title="FraudShield AI")
 
 
-# ==========================================
-# STEP 3: Create Homepage Endpoint
-# ==========================================
 
 # Run the home function when someone visits "/".
 @app.get("/")
@@ -31,10 +21,6 @@ def home():
     }
 
 
-# ==========================================
-# STEP 4: Create Health Check Endpoint
-# ==========================================
-
 # Check whether our backend is working.
 @app.get("/health")
 def health():
@@ -42,4 +28,24 @@ def health():
     # Return the health status.
     return {
         "status": "healthy"
+    }
+
+
+# Receive and validate transaction data
+@app.post("/predict")
+def predict_transaction(transaction: TransactionInput):
+    {
+  "amount": 250.50,
+  "merchant_category": "electronics",
+  "transaction_hour": 22,
+  "card_type": "debit"
+}
+
+    # Return received data (ML model not connected yet)
+    return {
+        "message": "Transaction received successfully",
+        "transaction": transaction.model_dump(),
+        "fraud_probability": None,
+        "anomaly_score": None,
+        "decision": "MODEL_NOT_CONNECTED"
     }
