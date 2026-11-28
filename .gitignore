@@ -227,3 +227,7 @@ data/raw/
 data/processed/
 models/*.joblib
 models/*.pkl
+
+# Ignore large datasets
+*.csv
+*.parquet

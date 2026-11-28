@@ -1,5 +1,7 @@
 
+from backend.decision import make_decision
 # Import FastAPI to create our backend application.
+
 from fastapi import FastAPI
 # Import transaction schema
 from backend.schemas import TransactionInput
@@ -48,4 +50,16 @@ def predict_transaction(transaction: TransactionInput):
         "fraud_probability": None,
         "anomaly_score": None,
         "decision": "MODEL_NOT_CONNECTED"
+    }
+
+# Test transaction decision logic
+@app.get("/test-decision")
+def test_decision(fraud_probability: float):
+
+    if not 0 <= fraud_probability <= 1:
+        return {"error": "Probability must be between 0 and 1"}
+
+    return {
+        "fraud_probability": fraud_probability,
+        "decision": make_decision(fraud_probability)
     }
